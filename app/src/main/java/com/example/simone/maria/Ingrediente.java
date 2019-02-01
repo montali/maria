@@ -1,38 +1,64 @@
 package com.example.simone.maria;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Ingrediente implements Serializable {
+    private static Integer lastIngredienteID = 0;
     private String mName;
-    private int imageId=R.drawable.pera;
-    private int grams;
+    private Integer id;
+    private Integer grams;
+    private int ricetta_id;
 
-    public int getGrams() {
+    public Ingrediente(Integer id, String mName, Integer grams, int ricetta_id) {
+        this.id = id;
+        this.mName = mName;
+        this.grams = grams;
+        this.ricetta_id = ricetta_id;
+    }
+
+    public static Integer getLastIngredienteID() {
+        return lastIngredienteID;
+    }
+
+    public static void setLastIngredienteID(Integer lastIngredienteID) {
+        Ingrediente.lastIngredienteID = lastIngredienteID;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getmName() {
+        return mName;
+    }
+
+    public void setmName(String mName) {
+        this.mName = mName;
+    }
+
+    public int getRicetta_id() {
+        return ricetta_id;
+    }
+
+    public void setRicetta_id(int ricetta_id) {
+        this.ricetta_id = ricetta_id;
+    }
+
+    public Integer getGrams() {
         return grams;
     }
 
-
-    public int getDrawableId(){
-        return imageId;
-    }
-
-    public Ingrediente(String name, int grammi){
-        mName=name;
-        grams=grammi;
-    }
     public String getName(){
         return mName;
     }
 
-    private static int lastIngredienteID = 0;
-
-    public static ArrayList<Ingrediente> createRicettaList(int numRicette){
-        ArrayList<Ingrediente> ingredienti = new ArrayList<Ingrediente>();
-        for(int i=1;i<=numRicette;i++) {
-            ingredienti.add(new Ingrediente("Nome: " + ++lastIngredienteID,200));
-        }
-        return ingredienti;
+    public void setGrams(Integer grams) {
+        this.grams = grams;
     }
+
 }
 

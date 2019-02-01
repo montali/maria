@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import java.util.List;
 
 public class RicettaAdapter extends RecyclerView.Adapter<RicettaAdapter.ViewHolder> {
         public List<Ricetta> mRicette;
 
+    DatabaseHelper db;
     public RicettaAdapter(List<Ricetta> ricette){
             mRicette=ricette;
         }
@@ -36,11 +36,9 @@ public class RicettaAdapter extends RecyclerView.Adapter<RicettaAdapter.ViewHold
         public void onClick(View view) {
             int position = getAdapterPosition(); // gets item position
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
-                Ricetta ricetta = mRicette.get(position);
                 // We can access the data within the views
                 Intent myIntent = new Intent(view.getContext(), RicettaViewer.class);
                 myIntent.putExtra("position", position); //Optional parameters
-                myIntent.putExtra("ricetta",ricetta);
                 view.getContext().startActivity(myIntent);
             }
         }

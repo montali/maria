@@ -6,14 +6,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RicettaEdit extends AppCompatActivity {
@@ -21,6 +17,7 @@ public class RicettaEdit extends AppCompatActivity {
     private IngredientiAdapter adapter;
     private Ricetta ricetta;
     EditText titolo;
+    private DatabaseHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent=getIntent();
@@ -29,9 +26,11 @@ public class RicettaEdit extends AppCompatActivity {
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         int id =  intent.getIntExtra("position",0);
-        ricetta=(Ricetta) intent.getParcelableExtra("ricetta");
-        ArrayList<Ingrediente> ingredienti = ricetta.getIngredienti();
-        ArrayList<Passo> passi = ricetta.getPassi();
+        Ricetta ricetta = db.getRicetta(id);
+        List<Ingrediente> ingredienti = db.getIngredientiFromRicetta(ricetta);
+        List<Passo> passi = db.getPassiFromRicetta(ricetta);
+        ingredienti.add(new Ingrediente(null, "Aggiungi ingrediente", null, ricetta.getId()));
+        passi.add(new Passo(null, passi.size() + 1, ricetta.getId(), "Aggiungi passo", 0));
         RecyclerView recyclerView = findViewById(R.id.rvAnimalsEdit);
         LinearLayoutManager horizontalLayoutManager
                 = new LinearLayoutManager(RicettaEdit.this, LinearLayoutManager.HORIZONTAL, false);
@@ -59,7 +58,7 @@ public class RicettaEdit extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.save:
                 ricetta.setmName(titolo.getText().toString());
-                Log.i("DAJE",ricetta.getName());
+                db.updateRicetta(ricetta);
                 return true;
 
             default:

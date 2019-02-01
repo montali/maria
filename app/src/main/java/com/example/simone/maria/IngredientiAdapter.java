@@ -1,7 +1,6 @@
 package com.example.simone.maria;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +14,40 @@ import java.util.List;
 public class IngredientiAdapter extends RecyclerView.Adapter<IngredientiAdapter.ViewHolder> {
 
     private List<Ingrediente> mIngredienti;
-
+    private DatabaseHelper db;
     public IngredientiAdapter(Context context,List<Ingrediente> ingredienti){
         mIngredienti=ingredienti;
     }
+
+    // Involves populating data into the item through holder
+    @Override
+    public void onBindViewHolder(IngredientiAdapter.ViewHolder viewHolder, int position) {
+        // Get the data model based on position
+        Ingrediente ingrediente = mIngredienti.get(position);
+        String quantity = "";
+        // Set item views based on your views and data model
+        TextView textView = viewHolder.nameTextView;
+        textView.setText(ingrediente.getName());
+        TextView description = viewHolder.gramsTextView;
+        ImageView imageView = viewHolder.ricettaImageView;
+        imageView.setImageResource(R.drawable.pera);
+        quantity = Integer.toString(ingrediente.getGrams()) + " g";
+        description.setText(quantity);
+    }
+
+    @Override
+    public IngredientiAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        // Inflate the custom layout
+        View contactView = inflater.inflate(R.layout.ingrediente, parent, false);
+
+        // Return a new holder instance
+        IngredientiAdapter.ViewHolder viewHolder = new IngredientiAdapter.ViewHolder(context, contactView);
+        return viewHolder;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView nameTextView;
         public TextView gramsTextView;
@@ -39,37 +68,12 @@ public class IngredientiAdapter extends RecyclerView.Adapter<IngredientiAdapter.
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
                 Ingrediente ingrediente = mIngredienti.get(position);
                 // We can access the data within the views
+                if (ingrediente.getName() == "Aggiungi ingrediente") {
+                    //todo dialog aggiungi ingrediente
+                }
                 Toast.makeText(context, ingrediente.getName(), Toast.LENGTH_SHORT).show();
             }
         }
-    }
-    @Override
-    public IngredientiAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.ingrediente, parent, false);
-
-        // Return a new holder instance
-        IngredientiAdapter.ViewHolder viewHolder = new IngredientiAdapter.ViewHolder(context,contactView);
-        return viewHolder;
-    }
-
-    // Involves populating data into the item through holder
-    @Override
-    public void onBindViewHolder(IngredientiAdapter.ViewHolder viewHolder, int position) {
-        // Get the data model based on position
-        Ingrediente ingrediente = mIngredienti.get(position);
-        String quantity="";
-        // Set item views based on your views and data model
-        TextView textView = viewHolder.nameTextView;
-        textView.setText(ingrediente.getName());
-        TextView description = viewHolder.gramsTextView;
-        ImageView imageView=viewHolder.ricettaImageView;
-        imageView.setImageResource(ingrediente.getDrawableId());
-        quantity=Integer.toString(ingrediente.getGrams()) + " g";
-        description.setText(quantity);
     }
 
     // Returns the total count of items in the list

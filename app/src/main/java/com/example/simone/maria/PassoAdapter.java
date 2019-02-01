@@ -34,14 +34,18 @@ public class PassoAdapter extends RecyclerView.Adapter<PassoAdapter.ViewHolder> 
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION) {
                 Passo passo = mPassi.get(position);
-                if(passoTextView.getAlpha()==1) {
-                    passoTextView.setAlpha((float) 0.4);
-                    passoNumberTextView.setAlpha((float) 0.4);
-                    checkBox.setAlpha((float) 0.4);
-                } else{
-                    passoTextView.setAlpha((float) 1);
-                    passoNumberTextView.setAlpha((float) 1);
-                    checkBox.setAlpha((float) 1);
+                if (passo.getDescription() == "Aggiungi passo") {
+                    //todo dialog per aggiungere passo
+                } else {
+                    if(passoTextView.getAlpha()==1) {
+                        passoTextView.setAlpha((float) 0.4);
+                        passoNumberTextView.setAlpha((float) 0.4);
+                        checkBox.setAlpha((float) 0.4);
+                    } else{
+                        passoTextView.setAlpha((float) 1);
+                        passoNumberTextView.setAlpha((float) 1);
+                        checkBox.setAlpha((float) 1);
+                    }
                 }
             }
         }

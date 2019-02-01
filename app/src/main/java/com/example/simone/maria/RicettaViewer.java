@@ -1,21 +1,22 @@
 package com.example.simone.maria;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class RicettaViewer extends AppCompatActivity{
 
     private IngredientiAdapter adapter;
+    private DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +26,10 @@ public class RicettaViewer extends AppCompatActivity{
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         final int id =  intent.getIntExtra("position",0);
-        final Ricetta ricetta=(Ricetta) intent.getParcelableExtra("ricetta");
-        ArrayList<Ingrediente> ingredienti = ricetta.getIngredienti();
-        ArrayList<Passo> passi = ricetta.getPassi();
+        //final Ricetta ricetta=(Ricetta) intent.getParcelableExtra("ricetta");
+        final Ricetta ricetta = db.getRicetta(id);
+        List<Ingrediente> ingredienti = db.getIngredientiFromRicetta(ricetta);
+        List<Passo> passi = db.getPassiFromRicetta(ricetta);
         RecyclerView recyclerView = findViewById(R.id.rvAnimals);
         LinearLayoutManager horizontalLayoutManager
                 = new LinearLayoutManager(RicettaViewer.this, LinearLayoutManager.HORIZONTAL, false);
@@ -47,7 +49,6 @@ public class RicettaViewer extends AppCompatActivity{
             public void onClick(View view) {
                 Intent myIntent = new Intent(view.getContext(), RicettaEdit.class);
                 myIntent.putExtra("position", id); //Optional parameters
-                myIntent.putExtra("ricetta",ricetta);
                 view.getContext().startActivity(myIntent);
             }
 
