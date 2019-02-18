@@ -9,10 +9,10 @@ import java.util.ArrayList;
 public class PassiDiffCallback extends DiffUtil.Callback {
 
 
-    ArrayList<Passo> oldPassi;
-    ArrayList<Passo> newPassi;
+    private ArrayList<Passo> oldPassi;
+    private ArrayList<Passo> newPassi;
 
-    public PassiDiffCallback(ArrayList<Passo> newPassi, ArrayList<Passo> oldPassi) {
+    PassiDiffCallback(ArrayList<Passo> newPassi, ArrayList<Passo> oldPassi) {
         this.newPassi = newPassi;
         this.oldPassi = oldPassi;
     }
@@ -29,7 +29,7 @@ public class PassiDiffCallback extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return oldPassi.get(oldItemPosition).getId() == newPassi.get(newItemPosition).getId();
+        return oldPassi.get(oldItemPosition).getId().equals(newPassi.get(newItemPosition).getId());
     }
 
     @Override

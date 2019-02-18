@@ -9,7 +9,7 @@ public class Passo  implements Serializable {
     private int ricetta_id;
     private String description;
 
-    public Passo(Integer id, Integer num, int ricetta, String desc, int done) {
+    Passo(Integer id, Integer num, int ricetta, String desc, int done) {
         this.id = id;
         number = num;
         ricetta_id = ricetta;
@@ -34,11 +34,11 @@ public class Passo  implements Serializable {
         return description;
     }
 
-    public int isDone() {
+    int isDone() {
         return done;
     }
 
-    public void setDone(int done) {
+    void setDone(int done) {
         this.done = done;
     }
 
@@ -46,14 +46,10 @@ public class Passo  implements Serializable {
         this.number = number;
     }
 
-    public int getRicetta_id() {
+    int getRicetta_id() {
         return ricetta_id;
     }
-
-    public void setRicetta_id(int ricetta_id) {
-        this.ricetta_id = ricetta_id;
-    }
-
+    
     public void setDescription(String description) {
         this.description = description;
     }

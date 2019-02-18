@@ -8,7 +8,7 @@ public class Ingrediente implements Serializable {
     private Integer grams;
     private int ricetta_id;
 
-    public Ingrediente(Integer id, String mName, Integer grams, int ricetta_id) {
+    Ingrediente(Integer id, String mName, Integer grams, int ricetta_id) {
         this.id = id;
         this.mName = mName;
         this.grams = grams;
@@ -24,23 +24,23 @@ public class Ingrediente implements Serializable {
         this.id = id;
     }
 
-    public String getmName() {
+    String getmName() {
         return mName;
     }
 
-    public void setmName(String mName) {
+    void setmName(String mName) {
         this.mName = mName;
     }
 
-    public int getRicetta_id() {
+    int getRicetta_id() {
         return ricetta_id;
     }
 
-    public void setRicetta_id(int ricetta_id) {
+    void setRicetta_id(int ricetta_id) {
         this.ricetta_id = ricetta_id;
     }
 
-    public Integer getGrams() {
+    Integer getGrams() {
         return grams;
     }
 
@@ -48,7 +48,7 @@ public class Ingrediente implements Serializable {
         return mName;
     }
 
-    public void setGrams(Integer grams) {
+    void setGrams(Integer grams) {
         this.grams = grams;
     }
 

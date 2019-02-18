@@ -35,30 +35,21 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db = new DatabaseHelper(getApplicationContext());
-        RecyclerView rvRicette = (RecyclerView) findViewById(R.id.rvRicette);
+        RecyclerView rvRicette = findViewById(R.id.rvRicette);
         ricette = db.getAllRicette();
-        // Create adapter passing in the sample user data
         adapter = new RicettaAdapter(db, ricette, this);
-        // Attach the adapter to the recyclerview to populate items
         rvRicette.setAdapter(adapter);
-        // Set layout manager to position the items
         rvRicette.setLayoutManager(new LinearLayoutManager(this));
-        // That's all!
         ItemTouchHelper itemTouchHelper = new
                 ItemTouchHelper(new SwipeToDeleteCallback(adapter));
         itemTouchHelper.attachToRecyclerView(rvRicette);
         fab = findViewById(R.id.main_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        fab.setOnClickListener((View view) -> {
                 int id = db.createRicetta(new Ricetta(null, db.getMaxRicetta() + 1, null, null));
                 Intent myIntent = new Intent(view.getContext(), RicettaEdit.class);
                 myIntent.putExtra("position", id); //Optional parameters
                 view.getContext().startActivity(myIntent);
-            }
-
         });
-
     }
 
     @Override
@@ -101,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                     .build();
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("firstTime", true);
-            editor.commit();
+            editor.apply();
         }
 
         adapter.updateList(db.getAllRicette());

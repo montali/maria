@@ -8,10 +8,10 @@ import java.util.ArrayList;
 public class IngredientiDiffCallback extends DiffUtil.Callback {
 
 
-    ArrayList<Ingrediente> oldIngredienti;
-    ArrayList<Ingrediente> newIngredienti;
+    private ArrayList<Ingrediente> oldIngredienti;
+    private ArrayList<Ingrediente> newIngredienti;
 
-    public IngredientiDiffCallback(ArrayList<Ingrediente> newIngredienti, ArrayList<Ingrediente> oldIngredienti) {
+    IngredientiDiffCallback(ArrayList<Ingrediente> newIngredienti, ArrayList<Ingrediente> oldIngredienti) {
         this.newIngredienti = newIngredienti;
         this.oldIngredienti = oldIngredienti;
     }
@@ -28,7 +28,7 @@ public class IngredientiDiffCallback extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return oldIngredienti.get(oldItemPosition).getId() == newIngredienti.get(newItemPosition).getId();
+        return oldIngredienti.get(oldItemPosition).getId().equals(newIngredienti.get(newItemPosition).getId());
     }
 
     @Override

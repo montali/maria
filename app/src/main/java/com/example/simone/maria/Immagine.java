@@ -10,7 +10,7 @@ public class Immagine {
 
     // Getters and setters
 
-    public Immagine(int id, Uri photo_uri, int ricetta_id) {
+    Immagine(int id, Uri photo_uri, int ricetta_id) {
         this.id = id;
         this.photo_uri = photo_uri;
         this.ricetta_id = ricetta_id;
@@ -24,21 +24,13 @@ public class Immagine {
         this.id = id;
     }
 
-    public Uri getPhoto_uri() {
+    Uri getPhoto_uri() {
         return photo_uri;
     }
 
-    public void setPhoto_uri(Uri photo_uri) {
-        this.photo_uri = photo_uri;
-    }
 
-    public int getRicetta_id() {
+    int getRicetta_id() {
         return ricetta_id;
     }
 
-    // Constructors
-
-    public void setRicetta_id(int ricetta_id) {
-        this.ricetta_id = ricetta_id;
-    }
 }
