@@ -3,6 +3,7 @@ package com.example.simone.maria;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,7 +22,7 @@ public class PassoAdapter extends RecyclerView.Adapter<PassoAdapter.ViewHolder> 
     private boolean editing;
     private int ricetta_id;
 
-    public PassoAdapter(Context context, int ricetta_id, boolean editing) {
+    PassoAdapter(Context context, int ricetta_id, boolean editing) {
         db = new DatabaseHelper(context);
         mPassi = db.getPassiFromRicetta(db.getRicetta(ricetta_id));
         this.editing = editing;
@@ -32,13 +33,11 @@ public class PassoAdapter extends RecyclerView.Adapter<PassoAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(PassoAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull PassoAdapter.ViewHolder viewHolder, int position) {
         Passo passo = mPassi.get(position);
         TextView passoNum = viewHolder.passoNumberTextView;
         TextView passoTex = viewHolder.passoTextView;
         ImageView checkBox = viewHolder.checkBox;
-        //passoNum.setText(Integer.toString(position+1));
-        //TODO controlla qui se va bene
         passoNum.setText(String.format(Locale.getDefault(), "%d", position + 1));
         passoTex.setText(passo.getDescription());
         if (passo.getId() == null)
@@ -47,15 +46,15 @@ public class PassoAdapter extends RecyclerView.Adapter<PassoAdapter.ViewHolder> 
     }
 
     @Override
-    public PassoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public PassoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View passiView = inflater.inflate(R.layout.passo_preparazione, parent, false);
-        ViewHolder viewHolder = new ViewHolder(context, passiView);
-        return viewHolder;
+        return new ViewHolder(context, passiView);
     }
 
-    public void updateList() {
+    void updateList() {
         int currentSize = mPassi.size();
         ArrayList<Passo> newList = db.getPassiFromRicetta(db.getRicetta(ricetta_id));
         if (editing)
@@ -80,11 +79,11 @@ public class PassoAdapter extends RecyclerView.Adapter<PassoAdapter.ViewHolder> 
         private ImageView checkBox;
         private Context context;
 
-        public ViewHolder(Context context, View itemView) {
+        ViewHolder(Context context, View itemView) {
             super(itemView);
-            passoNumberTextView = (TextView) itemView.findViewById(R.id.passo_number);
-            passoTextView = (TextView) itemView.findViewById(R.id.passo_desc);
-            checkBox=(ImageView) itemView.findViewById(R.id.checkbox_passo);
+            passoNumberTextView = itemView.findViewById(R.id.passo_number);
+            passoTextView = itemView.findViewById(R.id.passo_desc);
+            checkBox = itemView.findViewById(R.id.checkbox_passo);
             if (!editing)
                 checkBox.setImageResource(R.drawable.ic_check_solid_grey);
             this.context = context;
@@ -103,16 +102,14 @@ public class PassoAdapter extends RecyclerView.Adapter<PassoAdapter.ViewHolder> 
                     else
                         builder.setTitle(context.getString(R.string.passo_edit) + Integer.toString(position + 1));
                     View viewInflated = LayoutInflater.from(this.context).inflate(R.layout.passo_input_dialog, (ViewGroup) view, false);
-                    final EditText inputdesc = (EditText) viewInflated.findViewById(R.id.input_passo_desc);
+                    final EditText inputdesc = viewInflated.findViewById(R.id.input_passo_desc);
                     if (passo.getId() == null) {
                         inputdesc.setHint(R.string.passo_desc);
                     } else {
                         inputdesc.setText(passo.getDescription());
                     }
                     builder.setView(viewInflated);
-                    builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                    builder.setPositiveButton(R.string.ok, (DialogInterface dialog, int which) -> {
                             dialog.dismiss();
                             passo.setDescription(inputdesc.getText().toString());
                             if (passo.getId() == null) {
@@ -124,23 +121,14 @@ public class PassoAdapter extends RecyclerView.Adapter<PassoAdapter.ViewHolder> 
                                 db.updatePasso(passo);
                             }
                             updateList();
-                        }
                     });
-                    builder.setNegativeButton(R.string.annulla, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-                    builder.setNeutralButton(R.string.elimina, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                    builder.setNegativeButton(R.string.annulla, (DialogInterface dialog, int which) -> dialog.cancel());
+                    builder.setNeutralButton(R.string.elimina, (DialogInterface dialog, int which) -> {
                             dialog.dismiss();
                             if (passo.getId() != null) {
                                 db.deletePasso(passo.getId());
                             }
                             updateList();
-                        }
                     });
 
                     builder.show();

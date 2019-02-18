@@ -8,10 +8,10 @@ import java.util.ArrayList;
 public class RicettaDiffCallback extends DiffUtil.Callback {
 
 
-    ArrayList<Ricetta> oldRicette;
-    ArrayList<Ricetta> newRicette;
+    private ArrayList<Ricetta> oldRicette;
+    private ArrayList<Ricetta> newRicette;
 
-    public RicettaDiffCallback(ArrayList<Ricetta> newRicette, ArrayList<Ricetta> oldRicette) {
+    RicettaDiffCallback(ArrayList<Ricetta> newRicette, ArrayList<Ricetta> oldRicette) {
         this.newRicette = newRicette;
         this.oldRicette = oldRicette;
     }

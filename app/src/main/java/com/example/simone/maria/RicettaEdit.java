@@ -68,15 +68,15 @@ public class RicettaEdit extends AppCompatActivity implements BSImagePicker.OnSi
         IngredientiAdapter adapter = new IngredientiAdapter(this, id, true);
         recyclerView.setAdapter(adapter);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.photo_edit_pager);
+        ViewPager viewPager = findViewById(R.id.photo_edit_pager);
         imageEditAdapter = new ImageEditAdapter(this, ricetta);
         viewPager.setAdapter(imageEditAdapter);
         caloriesEdit = findViewById(R.id.edit_calories);
         peopleEdit = findViewById(R.id.people_edit_counter);
 
-        titolo = (EditText) findViewById(R.id.ricetta_titolo_edit);
-        descrizione = (EditText) findViewById(R.id.ricetta_edit_desc);
-        tastoAddPhoto = (ImageButton) findViewById(R.id.tastoAddPhoto);
+        titolo = findViewById(R.id.ricetta_titolo_edit);
+        descrizione = findViewById(R.id.ricetta_edit_desc);
+        tastoAddPhoto = findViewById(R.id.tastoAddPhoto);
 
         // Se la ricetta esiste, la modifichiamo
         if (ricetta.getName() != null) {
@@ -102,14 +102,13 @@ public class RicettaEdit extends AppCompatActivity implements BSImagePicker.OnSi
             tastoAddPhoto.setImageResource(R.drawable.ic_plus_solid);
             tastoAddPhoto.setColorFilter(Color.argb(255, 255, 255, 255));
         }
-        RecyclerView rvPassi = (RecyclerView) findViewById(R.id.preparazione_edit);
+        RecyclerView rvPassi = findViewById(R.id.preparazione_edit);
         PassoAdapter paAdapter = new PassoAdapter(this, id, true);
         rvPassi.setAdapter(paAdapter);
         rvPassi.setLayoutManager(new LinearLayoutManager(this));
         context = this;
-        tastoAddPhoto.setOnClickListener(new View.OnClickListener() {
-            // Uso l'imagePicker di una libreria
-            public void onClick(View view) {
+        // Uso l'imagePicker di una libreria
+        tastoAddPhoto.setOnClickListener((View view) -> {
                 if (db.getImmaginiFromRicetta(ricetta).size() < 3) {
                     multiSelectionPicker = new BSImagePicker.Builder(getString(R.string.fileprovider))
                             .isMultiSelect() //Set this if you want to use multi selection mode.
@@ -122,13 +121,11 @@ public class RicettaEdit extends AppCompatActivity implements BSImagePicker.OnSi
                             .build();
                     multiSelectionPicker.show(getSupportFragmentManager(), "picker");
                 } else {
-                    Toast.makeText(context, R.string.maximum_photos_reached, Toast.LENGTH_LONG);
+                    Toast.makeText(context, R.string.maximum_photos_reached, Toast.LENGTH_LONG).show();
                 }
-            }
         });
         // Premendo il numero di persone, apro un AlertDialog con un NumberPicker
-        peopleEdit.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
+        peopleEdit.setOnClickListener((View view) -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(RicettaEdit.this);
                 if (ricetta.getPeople() == null)
                     builder.setTitle(R.string.add_people);
@@ -139,29 +136,18 @@ public class RicettaEdit extends AppCompatActivity implements BSImagePicker.OnSi
                 peopleSelector.setMinValue(1);
                 peopleSelector.setMaxValue(20);
                 builder.setView(viewInflated);
-                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+            builder.setPositiveButton(R.string.ok, (DialogInterface dialog, int which) -> {
                         dialog.dismiss();
                         ricetta.setPeople(peopleSelector.getValue());
                         String peopleText = ricetta.getPeople().toString() + getString(R.string.people);
                         peopleEdit.setText(peopleText);
-
-                    }
                 });
-                builder.setNegativeButton(R.string.annulla, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+            builder.setNegativeButton(R.string.annulla, (DialogInterface dialog, int which) -> dialog.cancel());
 
                 builder.show();
-            }
         });
         // Come per le persone, sull'onClick delle calorie apro un AlertDialog
-        caloriesEdit.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
+        caloriesEdit.setOnClickListener((View view) -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(RicettaEdit.this);
                 if (ricetta.getCalories() == null)
                     builder.setTitle(R.string.insert_calories);
@@ -182,9 +168,7 @@ public class RicettaEdit extends AppCompatActivity implements BSImagePicker.OnSi
 
                 peopleSelector.setDisplayedValues(arrayValues);
                 builder.setView(viewInflated);
-                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+            builder.setPositiveButton(R.string.ok, (DialogInterface dialog, int which) -> {
                         dialog.dismiss();
                         String caloriesText = getString(R.string.insert_calories);
                         if (peopleSelector.getValue() == iStepsArray)
@@ -195,18 +179,9 @@ public class RicettaEdit extends AppCompatActivity implements BSImagePicker.OnSi
                             caloriesText = ricetta.getCalories().toString() + getString(R.string.calories_abbrv);
                         }
                         caloriesEdit.setText(caloriesText);
-
-                    }
                 });
-                builder.setNegativeButton(R.string.annulla, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
+            builder.setNegativeButton(R.string.annulla, (DialogInterface dialog, int which) -> dialog.cancel());
                 builder.show();
-            }
         });
 
 
@@ -271,61 +246,37 @@ public class RicettaEdit extends AppCompatActivity implements BSImagePicker.OnSi
         if (titolo.getText().length() == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.name_required)
-                    .setPositiveButton(R.string.gotit, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                        }
-                    });
+                    .setPositiveButton(R.string.gotit, (DialogInterface dialog, int id) -> dialog.dismiss());
             builder.show();
             return false;
         } else if (descrizione.getText().length() == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.desc_required)
-                    .setPositiveButton(R.string.gotit, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                        }
-                    });
+                    .setPositiveButton(R.string.gotit, (DialogInterface dialog, int id) -> dialog.dismiss());
             builder.show();
             return false;
         } else if (db.getImmaginiFromRicetta(ricetta).size() == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.photo_required)
-                    .setPositiveButton(R.string.gotit, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                        }
-                    });
+                    .setPositiveButton(R.string.gotit, (DialogInterface dialog, int id) -> dialog.dismiss());
             builder.show();
             return false;
         } else if (ricetta.getPeople() == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.people_required)
-                    .setPositiveButton(R.string.gotit, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                        }
-                    });
+                    .setPositiveButton(R.string.gotit, (DialogInterface dialog, int id) -> dialog.dismiss());
             builder.show();
             return false;
         } else if (db.getPassiFromRicetta(ricetta).size() == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.passo_required)
-                    .setPositiveButton(R.string.gotit, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                        }
-                    });
+                    .setPositiveButton(R.string.gotit, (DialogInterface dialog, int id) -> dialog.dismiss());
             builder.show();
             return false;
         } else if (db.getIngredientiFromRicetta(ricetta).size() == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.ingrediente_required)
-                    .setPositiveButton(R.string.gotit, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                        }
-                    });
+                    .setPositiveButton(R.string.gotit, (DialogInterface dialog, int id) -> dialog.dismiss());
             builder.show();
             return false;
 

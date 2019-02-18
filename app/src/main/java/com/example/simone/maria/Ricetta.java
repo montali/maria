@@ -1,14 +1,11 @@
 package com.example.simone.maria;
 
-import java.util.ArrayList;
 
 public class Ricetta {
 
 
     private int id;
     private String mName;
-    private int imageId=R.drawable.pera;
-    private ArrayList<Ingrediente> ingredienti;
     private Integer people;
     private Integer calories;
 
@@ -49,49 +46,31 @@ public class Ricetta {
     public void setId(int id) {
         this.id = id;
     }
-    public String getmDescription() {
+
+    String getmDescription() {
         return mDescription;
     }
 
-    public int getDrawableId(){
-        return imageId;
-    }
-
-
-    public ArrayList<Ingrediente> getIngredienti() {
-        return ingredienti;
-    }
-
-
-    public void setmName(String mName) {
-        this.mName = mName;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
-    }
-
-    public void setIngredienti(ArrayList<Ingrediente> ingredienti) {
-        this.ingredienti = ingredienti;
-    }
-
-
-    public void setmDescription(String mDescription) {
+    void setmDescription(String mDescription) {
         this.mDescription = mDescription;
+    }
+
+    void setmName(String mName) {
+        this.mName = mName;
     }
 
     public void setPeople(Integer people) {
         this.people = people;
     }
 
-    public Integer getCalories() {
+    Integer getCalories() {
         if (calories != null)
             return calories;
         else
             return 0;
     }
 
-    public void setCalories(Integer calories) {
+    void setCalories(Integer calories) {
         this.calories = calories;
     }
 

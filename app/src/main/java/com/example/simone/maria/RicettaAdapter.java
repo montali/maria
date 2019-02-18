@@ -2,6 +2,7 @@ package com.example.simone.maria;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
@@ -25,27 +26,27 @@ public class RicettaAdapter extends RecyclerView.Adapter<RicettaAdapter.ViewHold
     private int mRecentlyDeletedItemPosition;
 
 
-    public RicettaAdapter(DatabaseHelper db, ArrayList<Ricetta> ricette, Context context) {
+    RicettaAdapter(DatabaseHelper db, ArrayList<Ricetta> ricette, Context context) {
         this.db = db;
         this.ricette = ricette;
         this.context = context;
     }
 
         @Override
-        public RicettaAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        @NonNull
+        public RicettaAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
             // Inflate the custom layout
             View ricettaView = inflater.inflate(R.layout.item_ricetta, parent, false);
 
             // Return a new holder instance
-            ViewHolder viewHolder = new ViewHolder(context, ricettaView);
-            return viewHolder;
+            return new ViewHolder(context, ricettaView);
         }
 
         // Involves populating data into the item through holder
         @Override
-        public void onBindViewHolder(RicettaAdapter.ViewHolder viewHolder, int position) {
+        public void onBindViewHolder(@NonNull RicettaAdapter.ViewHolder viewHolder, int position) {
             // Get the data model based on position
             Ricetta ricetta = ricette.get(position);
             String subDescription="";
@@ -72,12 +73,12 @@ public class RicettaAdapter extends RecyclerView.Adapter<RicettaAdapter.ViewHold
             return ricette.size();
         }
 
-    public void filter(String query) {
+    void filter(String query) {
         ArrayList<Ricetta> newRicette = db.searchRicette(query);
         updateList(newRicette);
     }
 
-    public void updateList(ArrayList<Ricetta> newList) {
+    void updateList(ArrayList<Ricetta> newList) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new RicettaDiffCallback(this.ricette, newList));
         int currentSize = ricette.size();
         this.ricette.clear();
@@ -91,7 +92,7 @@ public class RicettaAdapter extends RecyclerView.Adapter<RicettaAdapter.ViewHold
         return context;
     }
 
-    public void deleteItem(int position) {
+    void deleteItem(int position) {
         mRecentlyDeletedItem = new Ricetta(ricette.get(position));
         mRecentlyDeletedItemPosition = position;
 
@@ -148,16 +149,16 @@ public class RicettaAdapter extends RecyclerView.Adapter<RicettaAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView nameTextView;
-        public TextView descriptionTextView;
-        public ImageView ricettaImageView;
+        TextView nameTextView;
+        TextView descriptionTextView;
+        ImageView ricettaImageView;
         private Context context;
 
-        public ViewHolder(Context context, View itemView) {
+        ViewHolder(Context context, View itemView) {
             super(itemView);
-            nameTextView = (TextView) itemView.findViewById(R.id.ricetta_name);
-            ricettaImageView = (ImageView) itemView.findViewById(R.id.immagine_ricetta);
-            descriptionTextView = (TextView) itemView.findViewById(R.id.ricetta_description);
+            nameTextView = itemView.findViewById(R.id.ricetta_name);
+            ricettaImageView = itemView.findViewById(R.id.immagine_ricetta);
+            descriptionTextView = itemView.findViewById(R.id.ricetta_description);
             this.context = context;
             itemView.setOnClickListener(this);
         }
@@ -167,7 +168,7 @@ public class RicettaAdapter extends RecyclerView.Adapter<RicettaAdapter.ViewHold
             int position = getAdapterPosition(); // gets item position
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
                 // We can access the data within the views
-                Intent myIntent = new Intent(view.getContext(), RicettaViewer.class);
+                Intent myIntent = new Intent(context, RicettaViewer.class);
                 myIntent.putExtra("position", ricette.get(position).getId()); //Optional parameters
                 view.getContext().startActivity(myIntent);
             }
