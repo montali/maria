@@ -15,52 +15,149 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="0dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/pera"
-        tools:layout_editor_absoluteY="0dp" />
 
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/photo_pager"
+        android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_marginTop="0dp" />
     <TextView
         android:id="@+id/ricetta_titolo"
-        android:layout_width="360dp"
-        android:layout_height="31dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
         android:textAlignment="viewStart"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="0dp">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvAnimals"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            tools:itemCount="3"
-            tools:listitem="@layout/recycler_view_item" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp">
 
-    </RelativeLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_user_solid" />
 
+                <TextView
+                    android:id="@+id/people_counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="0dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:id="@+id/caloriesLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Logo calorie"
+                    app:srcCompat="@drawable/ic_weight_solid" />
+
+                <TextView
+                    android:id="@+id/calorie_counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="0dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/ricetta_view_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="0dp"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tags_delimiter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="0dp"
+                android:text="@string/tags_delimiter"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvTags"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/recycler_view_tag" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/ingredienti_delimiter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="0dp"
+                android:text="@string/ingredienti_delimiter"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvAnimals"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/recycler_view_item" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/preparazione_delimiter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="0dp"
+                android:text="@string/preparazione_delimiter"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/preparazione"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -81,8 +178,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:src="@android:drawable/ic_media_play"
         app:layout_anchor="@id/scrollViewViewer"
-        app:layout_anchorGravity="bottom|right|end" />
+        app:layout_anchorGravity="bottom|right|end"
+        app:srcCompat="@drawable/ic_pencil_alt_solid" />
 
 </android.support.design.widget.CoordinatorLayout>

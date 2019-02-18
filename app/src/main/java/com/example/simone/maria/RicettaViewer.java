@@ -3,20 +3,30 @@ package com.example.simone.maria;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.List;
 
 public class RicettaViewer extends AppCompatActivity{
 
-    private IngredientiAdapter adapter;
-    private DatabaseHelper db;
+    private IngredientiAdapter ingredientiAdapter;
+    private TagAdapter tagAdapter;
+    private ImageAdapter imageAdapter;
+    private PassoAdapter passiAdapter;
+    private TextView titolo;
+    private TextView descrizione;
+    private TextView calorie;
+    private ImageView caloriesLogo;
+    private TextView people;
+    private DatabaseHelper db = new DatabaseHelper(this);
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,23 +35,41 @@ public class RicettaViewer extends AppCompatActivity{
         setContentView(R.layout.activity_ricetta_viewer);
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        final int id =  intent.getIntExtra("position",0);
-        //final Ricetta ricetta=(Ricetta) intent.getParcelableExtra("ricetta");
-        final Ricetta ricetta = db.getRicetta(id);
-        List<Ingrediente> ingredienti = db.getIngredientiFromRicetta(ricetta);
-        List<Passo> passi = db.getPassiFromRicetta(ricetta);
+        id = intent.getIntExtra("position", 0);
+
+        Ricetta ricetta = db.getRicetta(id);
+        if (ricetta == null)
+            finish();
+        RecyclerView rvTags = findViewById(R.id.rvTags);
+        LinearLayoutManager horizontalTagLayoutManager
+                = new LinearLayoutManager(RicettaViewer.this, LinearLayoutManager.HORIZONTAL, false);
+        rvTags.setLayoutManager(horizontalTagLayoutManager);
+        tagAdapter = new TagAdapter(this, id, false);
+        rvTags.setAdapter(tagAdapter);
+
         RecyclerView recyclerView = findViewById(R.id.rvAnimals);
         LinearLayoutManager horizontalLayoutManager
                 = new LinearLayoutManager(RicettaViewer.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(horizontalLayoutManager);
-        adapter = new IngredientiAdapter(this, ingredienti);
-        recyclerView.setAdapter(adapter);
-        TextView titolo = (TextView) findViewById(R.id.ricetta_titolo);
-        titolo.setText(ricetta.getName());
+        ingredientiAdapter = new IngredientiAdapter(this, id, false);
+        recyclerView.setAdapter(ingredientiAdapter);
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.photo_pager);
+        imageAdapter = new ImageAdapter(this, ricetta);
+        viewPager.setAdapter(imageAdapter);
+
+
+        titolo = (TextView) findViewById(R.id.ricetta_titolo);
+        descrizione = (TextView) findViewById(R.id.ricetta_view_desc);
+        calorie = (TextView) findViewById(R.id.calorie_counter);
+        people = (TextView) findViewById(R.id.people_counter);
+        caloriesLogo = (ImageView) findViewById(R.id.caloriesLogo);
+
+
         // Lookup the recyclerview in activity layout
         RecyclerView rvPassi = (RecyclerView) findViewById(R.id.preparazione);
-        PassoAdapter paAdapter = new PassoAdapter(passi);
-        rvPassi.setAdapter(paAdapter);
+        passiAdapter = new PassoAdapter(this, id, false);
+        rvPassi.setAdapter(passiAdapter);
         rvPassi.setLayoutManager(new LinearLayoutManager(this));
         final FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -64,5 +92,45 @@ public class RicettaViewer extends AppCompatActivity{
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final Ricetta ricetta = db.getRicetta(id);
+        titolo.setText(ricetta.getName());
+        descrizione.setText(ricetta.getmDescription());
+        String peopleText = ricetta.getPeople().toString() + getString(R.string.people);
+        people.setText(peopleText);
+        String calorieText = "";
+        if (ricetta.getCalories() != 0) {
+            calorieText = ricetta.getCalories().toString() + getString(R.string.calories_abbrv);
+            caloriesLogo.setImageResource(R.drawable.ic_weight_solid);
+        } else {
+            caloriesLogo.setImageResource(R.color.transparent);
+        }
+        calorie.setText(calorieText);
+        ingredientiAdapter.updateList();
+        tagAdapter.updateList();
+        passiAdapter.updateList();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (db != null)
+            db.closeDB();
+        super.onDestroy();
     }
 }

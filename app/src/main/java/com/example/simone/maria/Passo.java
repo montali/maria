@@ -5,11 +5,11 @@ import java.io.Serializable;
 public class Passo  implements Serializable {
     private Integer id;
     private int done;
-    private int number;
+    private Integer number;
     private int ricetta_id;
     private String description;
 
-    public Passo(Integer id, int num, int ricetta, String desc, int done) {
+    public Passo(Integer id, Integer num, int ricetta, String desc, int done) {
         this.id = id;
         number = num;
         ricetta_id = ricetta;
@@ -17,11 +17,16 @@ public class Passo  implements Serializable {
         this.done = done;
     }
 
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
@@ -37,7 +42,7 @@ public class Passo  implements Serializable {
         this.done = done;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 

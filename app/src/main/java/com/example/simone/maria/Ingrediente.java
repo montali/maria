@@ -3,7 +3,6 @@ package com.example.simone.maria;
 import java.io.Serializable;
 
 public class Ingrediente implements Serializable {
-    private static Integer lastIngredienteID = 0;
     private String mName;
     private Integer id;
     private Integer grams;
@@ -16,13 +15,6 @@ public class Ingrediente implements Serializable {
         this.ricetta_id = ricetta_id;
     }
 
-    public static Integer getLastIngredienteID() {
-        return lastIngredienteID;
-    }
-
-    public static void setLastIngredienteID(Integer lastIngredienteID) {
-        Ingrediente.lastIngredienteID = lastIngredienteID;
-    }
 
     public Integer getId() {
         return id;

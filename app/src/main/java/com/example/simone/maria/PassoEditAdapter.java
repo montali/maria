@@ -38,10 +38,12 @@ public class PassoEditAdapter extends RecyclerView.Adapter<PassoEditAdapter.View
                     passoTextView.setAlpha((float) 0.4);
                     passoNumberTextView.setAlpha((float) 0.4);
                     checkBox.setAlpha((float) 0.4);
+                    passo.setDone(1);
                 } else{
                     passoTextView.setAlpha((float) 1);
                     passoNumberTextView.setAlpha((float) 1);
                     checkBox.setAlpha((float) 1);
+                    passo.setDone(0);
                 }
 
 

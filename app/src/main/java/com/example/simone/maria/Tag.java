@@ -1,37 +1,39 @@
 package com.example.simone.maria;
 
 public class Tag {
-    int id;
-    private String tag_name;
-    public Tag() {
+    Integer id;
+    private String tagName;
+    private int ricettaId;
 
-    }
-
-    public Tag(String tag_name) {
-        this.tag_name = tag_name;
-    }
-
-    public Tag(int id, String tag_name) {
+    public Tag(Integer id, String tagName, int ricettaId) {
         this.id = id;
-        this.tag_name = tag_name;
+        this.tagName = tagName;
+        this.ricettaId = ricettaId;
+
     }
 
-    // setter
-    public void setId(int id) {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
-    }
-
-    public void setTagName(String tag_name) {
-        this.tag_name = tag_name;
-    }
-
-    // getter
-    public int getId() {
-        return this.id;
     }
 
     public String getTagName() {
-        return this.tag_name;
+        return tagName;
+    }
+
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
+    }
+
+    public int getRicettaId() {
+        return ricettaId;
+    }
+
+    public void setRicettaId(int ricettaId) {
+        this.ricettaId = ricettaId;
     }
 }
 
