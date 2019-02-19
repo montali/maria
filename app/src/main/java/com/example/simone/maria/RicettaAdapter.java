@@ -15,9 +15,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class RicettaAdapter extends RecyclerView.Adapter<RicettaAdapter.ViewHolder> {
-    private DatabaseHelper db;
-    private ArrayList<Ricetta> ricette;
-    private Context context;
+    private final DatabaseHelper db;
+    private final ArrayList<Ricetta> ricette;
+    private final Context context;
     private Ricetta mRecentlyDeletedItem;
     private ArrayList<Tag> mRecentlyDeletedTags;
     private ArrayList<Passo> mRecentlyDeletedPassi;
@@ -88,10 +88,6 @@ public class RicettaAdapter extends RecyclerView.Adapter<RicettaAdapter.ViewHold
         diffResult.dispatchUpdatesTo(this);
     }
 
-    public Context getContext() {
-        return context;
-    }
-
     void deleteItem(int position) {
         mRecentlyDeletedItem = new Ricetta(ricette.get(position));
         mRecentlyDeletedItemPosition = position;
@@ -149,10 +145,10 @@ public class RicettaAdapter extends RecyclerView.Adapter<RicettaAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView nameTextView;
-        TextView descriptionTextView;
-        ImageView ricettaImageView;
-        private Context context;
+        final TextView nameTextView;
+        final TextView descriptionTextView;
+        final ImageView ricettaImageView;
+        private final Context context;
 
         ViewHolder(Context context, View itemView) {
             super(itemView);

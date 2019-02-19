@@ -35,7 +35,7 @@ import static android.app.UiModeManager.MODE_NIGHT_NO;
 
 public class About extends AppCompatActivity {
 
-    private DatabaseHelper db = new DatabaseHelper(this);
+    private final DatabaseHelper db = new DatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +134,7 @@ public class About extends AppCompatActivity {
     }
 
 
-    public void importRicette() {
+    private void importRicette() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
@@ -164,7 +164,6 @@ public class About extends AppCompatActivity {
 
     @Override
     public void onDestroy() {
-        if (db != null)
             db.closeDB();
         super.onDestroy();
     }

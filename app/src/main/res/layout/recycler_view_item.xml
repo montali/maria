@@ -8,7 +8,8 @@
   <ImageView
       android:layout_width="50dp"
       android:layout_height="50dp"
-      tools:src="@tools:sample/avatars"/>
+      android:contentDescription="@string/recipe_image"
+      tools:src="@tools:sample/avatars" />
   <LinearLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

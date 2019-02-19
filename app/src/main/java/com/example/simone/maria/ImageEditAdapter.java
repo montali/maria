@@ -12,10 +12,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 
-public class ImageEditAdapter extends PagerAdapter {
-    Context context;
-    private DatabaseHelper db;
-    private Ricetta ricetta;
+class ImageEditAdapter extends PagerAdapter {
+    private final Context context;
+    private final DatabaseHelper db;
+    private final Ricetta ricetta;
 
     ImageEditAdapter(Context context, Ricetta ricetta) {
         this.context = context;

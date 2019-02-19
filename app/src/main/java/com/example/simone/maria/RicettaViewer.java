@@ -23,7 +23,7 @@ public class RicettaViewer extends AppCompatActivity{
     private TextView calorie;
     private ImageView caloriesLogo;
     private TextView people;
-    private DatabaseHelper db = new DatabaseHelper(this);
+    private final DatabaseHelper db = new DatabaseHelper(this);
     private int id;
 
     @Override
@@ -121,7 +121,6 @@ public class RicettaViewer extends AppCompatActivity{
 
     @Override
     public void onDestroy() {
-        if (db != null)
             db.closeDB();
         super.onDestroy();
     }

@@ -23,9 +23,8 @@ import co.naughtyspirit.showcaseview.utils.PositionsUtil;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-    DatabaseHelper db;
-    ArrayList<Ricetta> ricette;
-    RicettaAdapter adapter;
+    private DatabaseHelper db;
+    private RicettaAdapter adapter;
     private ShowcaseView sv = null;
     private FloatingActionButton fab;
 
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         setContentView(R.layout.activity_main);
         db = new DatabaseHelper(getApplicationContext());
         RecyclerView rvRicette = findViewById(R.id.rvRicette);
-        ricette = db.getAllRicette();
+        ArrayList<Ricetta> ricette = db.getAllRicette();
         adapter = new RicettaAdapter(db, ricette, this);
         rvRicette.setAdapter(adapter);
         rvRicette.setLayoutManager(new LinearLayoutManager(this));

@@ -1,16 +1,15 @@
 package com.example.simone.maria;
 
 
-import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 
 import java.util.ArrayList;
 
-public class PassiDiffCallback extends DiffUtil.Callback {
+class PassiDiffCallback extends DiffUtil.Callback {
 
 
-    private ArrayList<Passo> oldPassi;
-    private ArrayList<Passo> newPassi;
+    private final ArrayList<Passo> oldPassi;
+    private final ArrayList<Passo> newPassi;
 
     PassiDiffCallback(ArrayList<Passo> newPassi, ArrayList<Passo> oldPassi) {
         this.newPassi = newPassi;
@@ -35,13 +34,6 @@ public class PassiDiffCallback extends DiffUtil.Callback {
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
         return oldPassi.get(oldItemPosition).equals(newPassi.get(newItemPosition));
-    }
-
-    @Nullable
-    @Override
-    public Object getChangePayload(int oldItemPosition, int newItemPosition) {
-        //you can return particular field for changed item.
-        return super.getChangePayload(oldItemPosition, newItemPosition);
     }
 
 }

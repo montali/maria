@@ -79,4 +79,10 @@
     <string name="about_website">Visita il mio sito</string>
     <string name="import_zip">Importa le ricette da un file ZIP</string>
     <string name="import_success">Importazione completata</string>
+    <string name="people_desc">Logo persone</string>
+    <string name="weight_desc">Logo peso</string>
+    <string name="calorie_desc">Logo calorie</string>
+    <string name="recipe_image">Immagine ricetta</string>
+    <string name="delete_logo">Delete logo</string>
+    <string name="check_logo">Logo spunta</string>
 </resources>

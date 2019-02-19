@@ -2,7 +2,7 @@ package com.example.simone.maria;
 
 import java.io.Serializable;
 
-public class Ingrediente implements Serializable {
+class Ingrediente implements Serializable {
     private String mName;
     private Integer id;
     private Integer grams;

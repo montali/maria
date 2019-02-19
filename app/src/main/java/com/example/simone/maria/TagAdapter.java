@@ -15,10 +15,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
-    private ArrayList<Tag> mTags;
-    private DatabaseHelper db;
-    private boolean editing;
-    private int ricettaId;
+    private final ArrayList<Tag> mTags;
+    private final DatabaseHelper db;
+    private final boolean editing;
+    private final int ricettaId;
     private Context context;
 
     TagAdapter(Context context, int ricettaId, boolean editing) {
@@ -69,8 +69,8 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView tagTextView;
-        private Context context;
+        final TextView tagTextView;
+        private final Context context;
 
         ViewHolder(Context context, View itemView) {
             super(itemView);

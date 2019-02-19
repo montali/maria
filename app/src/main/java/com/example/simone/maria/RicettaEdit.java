@@ -30,16 +30,16 @@ public class RicettaEdit extends AppCompatActivity implements BSImagePicker.OnSi
         BSImagePicker.OnMultiImageSelectedListener {
 
     private Ricetta ricetta;
-    EditText titolo;
-    EditText descrizione;
-    TextView peopleEdit;
-    TextView caloriesEdit;
+    private final DatabaseHelper db = new DatabaseHelper(this);
+    private final int MAX_CALORIES = 2000;
+    private final int MIN_CALORIES = 100;
+    private EditText titolo;
     private BSImagePicker multiSelectionPicker;
-    private DatabaseHelper db = new DatabaseHelper(this);
+    private EditText descrizione;
     private ImageEditAdapter imageEditAdapter;
     private Context context;
-    private int MAX_CALORIES = 2000;
-    private int MIN_CALORIES = 100;
+    private TextView peopleEdit;
+    private TextView caloriesEdit;
     private ImageButton tastoAddPhoto;
 
     // Sull'onCreate, creiamo tutti gli adapter con l'id della ricetta, e riempiamo la UI
@@ -240,9 +240,8 @@ public class RicettaEdit extends AppCompatActivity implements BSImagePicker.OnSi
         }
     }
 
-
     // Questa funzione verifica che ci siano tutti i dati richiesti. Se non ci sono, AlertDialog
-    public boolean checkRequiredData() {
+    private boolean checkRequiredData() {
         if (titolo.getText().length() == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.name_required)
@@ -317,7 +316,6 @@ public class RicettaEdit extends AppCompatActivity implements BSImagePicker.OnSi
 
     @Override
     public void onDestroy() {
-        if (db != null)
             db.closeDB();
         super.onDestroy();
     }

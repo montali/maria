@@ -1,15 +1,14 @@
 package com.example.simone.maria;
 
-import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 
 import java.util.ArrayList;
 
-public class RicettaDiffCallback extends DiffUtil.Callback {
+class RicettaDiffCallback extends DiffUtil.Callback {
 
 
-    private ArrayList<Ricetta> oldRicette;
-    private ArrayList<Ricetta> newRicette;
+    private final ArrayList<Ricetta> oldRicette;
+    private final ArrayList<Ricetta> newRicette;
 
     RicettaDiffCallback(ArrayList<Ricetta> newRicette, ArrayList<Ricetta> oldRicette) {
         this.newRicette = newRicette;
@@ -34,13 +33,6 @@ public class RicettaDiffCallback extends DiffUtil.Callback {
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
         return oldRicette.get(oldItemPosition).equals(newRicette.get(newItemPosition));
-    }
-
-    @Nullable
-    @Override
-    public Object getChangePayload(int oldItemPosition, int newItemPosition) {
-        //you can return particular field for changed item.
-        return super.getChangePayload(oldItemPosition, newItemPosition);
     }
 
 }

@@ -1,10 +1,10 @@
 package com.example.simone.maria;
 
 
-public class Ricetta {
+class Ricetta {
 
 
-    private int id;
+    private final int id;
     private String mName;
     private Integer people;
     private Integer calories;
@@ -41,10 +41,6 @@ public class Ricetta {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     String getmDescription() {

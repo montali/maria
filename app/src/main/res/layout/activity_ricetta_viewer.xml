@@ -46,6 +46,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/people_desc"
                     app:srcCompat="@drawable/ic_user_solid" />
 
                 <TextView
@@ -62,7 +63,7 @@
                     android:id="@+id/caloriesLogo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="Logo calorie"
+                    android:contentDescription="@string/calorie_desc"
                     app:srcCompat="@drawable/ic_weight_solid" />
 
                 <TextView

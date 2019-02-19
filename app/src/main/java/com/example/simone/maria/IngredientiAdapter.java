@@ -18,10 +18,10 @@ import java.util.Locale;
 
 public class IngredientiAdapter extends RecyclerView.Adapter<IngredientiAdapter.ViewHolder> {
 
-    private ArrayList<Ingrediente> mIngredienti;
-    private DatabaseHelper db;
-    private boolean editing;
-    private int ricetta_id;
+    private final ArrayList<Ingrediente> mIngredienti;
+    private final DatabaseHelper db;
+    private final boolean editing;
+    private final int ricetta_id;
     private Context context;
 
     IngredientiAdapter(Context context, int ricetta_id, boolean editing) {
@@ -96,9 +96,9 @@ public class IngredientiAdapter extends RecyclerView.Adapter<IngredientiAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView nameTextView;
-        TextView gramsTextView;
-        private Context context;
+        final TextView nameTextView;
+        final TextView gramsTextView;
+        private final Context context;
 
         ViewHolder(Context context, View itemView) {
             super(itemView);

@@ -2,10 +2,10 @@ package com.example.simone.maria;
 
 import android.net.Uri;
 
-public class Immagine {
-    private int id;
-    private Uri photo_uri;
-    private int ricetta_id;
+class Immagine {
+    private final int id;
+    private final Uri photo_uri;
+    private final int ricetta_id;
 
 
     // Getters and setters
@@ -18,10 +18,6 @@ public class Immagine {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     Uri getPhoto_uri() {

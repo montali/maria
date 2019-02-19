@@ -17,10 +17,10 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class PassoAdapter extends RecyclerView.Adapter<PassoAdapter.ViewHolder> {
-    private ArrayList<Passo> mPassi;
-    private DatabaseHelper db;
-    private boolean editing;
-    private int ricetta_id;
+    private final ArrayList<Passo> mPassi;
+    private final DatabaseHelper db;
+    private final boolean editing;
+    private final int ricetta_id;
 
     PassoAdapter(Context context, int ricetta_id, boolean editing) {
         db = new DatabaseHelper(context);
@@ -74,10 +74,10 @@ public class PassoAdapter extends RecyclerView.Adapter<PassoAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView passoNumberTextView;
-        private TextView passoTextView;
-        private ImageView checkBox;
-        private Context context;
+        private final TextView passoNumberTextView;
+        private final TextView passoTextView;
+        private final ImageView checkBox;
+        private final Context context;
 
         ViewHolder(Context context, View itemView) {
             super(itemView);

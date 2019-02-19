@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 
-public class ImageAdapter extends PagerAdapter {
-    Context context;
-    private DatabaseHelper db;
-    private Ricetta ricetta;
+class ImageAdapter extends PagerAdapter {
+    private final Context context;
+    private final DatabaseHelper db;
+    private final Ricetta ricetta;
 
     ImageAdapter(Context context, Ricetta ricetta) {
         this.context = context;

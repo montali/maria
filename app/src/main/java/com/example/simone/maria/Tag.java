@@ -1,7 +1,7 @@
 package com.example.simone.maria;
 
-public class Tag {
-    Integer id;
+class Tag {
+    private Integer id;
     private String tagName;
     private int ricettaId;
 

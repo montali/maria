@@ -2,11 +2,11 @@ package com.example.simone.maria;
 
 import java.io.Serializable;
 
-public class Passo  implements Serializable {
+class Passo implements Serializable {
     private Integer id;
-    private int done;
-    private Integer number;
-    private int ricetta_id;
+    private final int done;
+    private final Integer number;
+    private final int ricetta_id;
     private String description;
 
     Passo(Integer id, Integer num, int ricetta, String desc, int done) {
@@ -36,10 +36,6 @@ public class Passo  implements Serializable {
 
     int isDone() {
         return done;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
     }
 
     int getRicetta_id() {

@@ -11,6 +11,7 @@
 
         android:layout_marginTop="0dp"
         android:background="@android:color/transparent"
+        android:contentDescription="@string/recipe_image"
         android:scaleType="centerCrop" />
 
     <ImageButton
@@ -21,6 +22,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
         android:background="@android:color/transparent"
+        android:contentDescription="@string/delete_logo"
         app:srcCompat="@drawable/ic_trash_alt_regular" />
 
 </RelativeLayout>
