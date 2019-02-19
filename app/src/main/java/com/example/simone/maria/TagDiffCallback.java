@@ -28,7 +28,10 @@ class TagDiffCallback extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return oldTags.get(oldItemPosition).getId().equals(newTags.get(newItemPosition).getId());
+        if (newTags.get(newItemPosition).getId() != null && oldTags.get(oldItemPosition).getId() != null)
+            return oldTags.get(oldItemPosition).getId().equals(newTags.get(newItemPosition).getId());
+        else
+            return false;
     }
 
     @Override

@@ -92,9 +92,7 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
                         builder.setTitle(R.string.edit_tag);
                     View viewInflated = LayoutInflater.from(this.context).inflate(R.layout.tag_input_dialog, (ViewGroup) view, false);
                     final EditText inputTag = viewInflated.findViewById(R.id.input_tag);
-                    if (tag.getId() == null)
-                        inputTag.setHint(R.string.tag);
-                    else
+                    if (tag.getId() != null)
                         inputTag.setText(tag.getTagName());
                     builder.setView(viewInflated);
                     builder.setPositiveButton(R.string.ok, (DialogInterface dialog, int which) -> {

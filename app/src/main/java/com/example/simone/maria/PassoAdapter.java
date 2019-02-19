@@ -103,9 +103,7 @@ public class PassoAdapter extends RecyclerView.Adapter<PassoAdapter.ViewHolder> 
                         builder.setTitle(context.getString(R.string.passo_edit) + Integer.toString(position + 1));
                     View viewInflated = LayoutInflater.from(this.context).inflate(R.layout.passo_input_dialog, (ViewGroup) view, false);
                     final EditText inputdesc = viewInflated.findViewById(R.id.input_passo_desc);
-                    if (passo.getId() == null) {
-                        inputdesc.setHint(R.string.passo_desc);
-                    } else {
+                    if (passo.getId() != null) {
                         inputdesc.setText(passo.getDescription());
                     }
                     builder.setView(viewInflated);

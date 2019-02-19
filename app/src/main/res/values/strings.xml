@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Maria</string>
     <string name="tags_delimiter">Tag</string>
     <string name="ingredienti_delimiter">Ingredienti</string>
@@ -9,8 +9,8 @@
     <string name="delete_confirmation_text">Vuoi davvero eliminare l\'immagine?</string>
     <string name="delete_confirmation_title">Conferma eliminazione</string>
     <string name="add_photo">Aggiungi foto</string>
-    <string name="caloriesHint">Inserisci calorie...</string>
-    <string name="peopleHint">Inserisci persone...</string>
+    <string name="caloriesHint">Inserisci calorie…</string>
+    <string name="peopleHint">Inserisci persone…</string>
     <string name="search_hint">Cerca ricette</string>
     <string name="photo_required">È necessario aggiungere una foto</string>
     <string name="name_required">È necessario aggiungere un titolo</string>
@@ -20,14 +20,13 @@
     <string name="passo_required">È necessario indicare almeno un passo</string>
     <string name="gotit">HO CAPITO</string>
     <string name="snack_bar_undo">ANNULLA</string>
-    <string name="photo_error">C\'è stato un errore nel caricamento della foto</string>
     <string name="showcase_button">NASCONDI</string>
     <string name="imagepicker_multiselect_done">Fatto</string>
     <string name="imagepicker_multiselect_not_enough_singular">Devi selezionare un\'altra immagine</string>
-    <string name="imagepicker_multiselect_not_enough_plural">Devi selezionare altre %d immagini</string>
+    <string name="imagepicker_multiselect_not_enough_plural" tools:ignore="PluralsCandidate">Devi selezionare altre %d immagini</string>
     <string name="imagepicker_multiselect_enough_singular">Hai selezionato 1 immagine</string>
-    <string name="imagepicker_multiselect_enough_plural">Hai selezionato %d immagini</string>
-    <string name="imagepicker_multiselect_overselect">Non puoi selezionare più di %d immagini</string>
+    <string name="imagepicker_multiselect_enough_plural" tools:ignore="PluralsCandidate">Hai selezionato %d immagini</string>
+    <string name="imagepicker_multiselect_overselect" tools:ignore="PluralsCandidate">Non puoi selezionare più di %d immagini</string>
     <string name="imagepicker_gallery_intent_title">Selezione multipla immagini</string>
     <string name="imagepicker_no_image_text_view">Non ci sono immagini sul dispositivo.</string>
     <string name="version_text">Versione 1.0</string>

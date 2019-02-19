@@ -4,20 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:padding="13dp">
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:padding="5dp">
 
         <TextView
-            android:id="@+id/textViewTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="@tools:sample/lorem[3]" />
-    </LinearLayout>
 </LinearLayout>

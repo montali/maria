@@ -62,7 +62,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:hint="@string/hint_nome"
+                android:importantForAutofill="no"
+                android:inputType="textAutoCorrect|textCapSentences"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="o" />
             </LinearLayout>
 
             <LinearLayout
@@ -113,11 +117,14 @@
                 android:layout_marginTop="0dp"
                 android:textAlignment="viewStart"
                 android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:hint="@string/descrizione_hint"
+                android:importantForAutofill="no"
+                android:inputType="textAutoCorrect|textCapSentences"
+                android:textSize="14sp"
+                tools:targetApi="o" />
 
 
             <TextView
-                android:id="@+id/tags_delimiter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -146,7 +153,6 @@
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/ingredienti_delimiter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -176,7 +182,6 @@
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/preparazione_delimiter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"

@@ -10,8 +10,8 @@
     <string name="delete_confirmation_text">Vuoi davvero eliminare l\'immagine?</string>
     <string name="delete_confirmation_title">Conferma eliminazione</string>
     <string name="add_photo">Aggiungi foto</string>
-    <string name="caloriesHint">Inserisci calorie...</string>
-    <string name="peopleHint">Inserisci persone...</string>
+    <string name="caloriesHint">Inserisci calorie…</string>
+    <string name="peopleHint">Inserisci persone…</string>
     <string name="search_hint">Cerca ricette</string>
     <string name="photo_required">È necessario aggiungere una foto</string>
     <string name="name_required">È necessario aggiungere un titolo</string>
@@ -21,7 +21,6 @@
     <string name="passo_required">È necessario indicare almeno un passo</string>
     <string name="gotit">HO CAPITO</string>
     <string name="snack_bar_undo">ANNULLA</string>
-    <string name="photo_error">C\'è stato un errore nel caricamento della foto</string>
     <string name="showcase_button">NASCONDI</string>
     <string name="imagepicker_multiselect_done">Fatto</string>
     <string name="imagepicker_multiselect_not_enough_singular">Devi selezionare un\'immagine</string>
@@ -85,4 +84,6 @@
     <string name="recipe_image">Immagine ricetta</string>
     <string name="delete_logo">Delete logo</string>
     <string name="check_logo">Logo spunta</string>
+    <string name="info">Informazioni</string>
+    <string name="delete">Elimina</string>
 </resources>

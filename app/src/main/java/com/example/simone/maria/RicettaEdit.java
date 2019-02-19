@@ -1,5 +1,6 @@
 package com.example.simone.maria;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -131,7 +132,7 @@ public class RicettaEdit extends AppCompatActivity implements BSImagePicker.OnSi
                     builder.setTitle(R.string.add_people);
                 else
                     builder.setTitle(R.string.edit_people);
-                View viewInflated = LayoutInflater.from(view.getContext()).inflate(R.layout.tag_input_number, null);
+            @SuppressLint("InflateParams") View viewInflated = LayoutInflater.from(view.getContext()).inflate(R.layout.tag_input_number, null);
                 final NumberPicker peopleSelector = viewInflated.findViewById(R.id.people_selector);
                 peopleSelector.setMinValue(1);
                 peopleSelector.setMaxValue(20);
@@ -153,7 +154,7 @@ public class RicettaEdit extends AppCompatActivity implements BSImagePicker.OnSi
                     builder.setTitle(R.string.insert_calories);
                 else
                     builder.setTitle(R.string.edit_calories);
-                View viewInflated = LayoutInflater.from(view.getContext()).inflate(R.layout.tag_input_number, null);
+            @SuppressLint("InflateParams") View viewInflated = LayoutInflater.from(view.getContext()).inflate(R.layout.tag_input_number, null);
                 final NumberPicker peopleSelector = viewInflated.findViewById(R.id.people_selector);
                 peopleSelector.setMinValue(0);
                 final int iStepsArray = (MAX_CALORIES - MIN_CALORIES) / 50 + 1; //get the lenght array that will return

@@ -28,7 +28,10 @@ class PassiDiffCallback extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return oldPassi.get(oldItemPosition).getId().equals(newPassi.get(newItemPosition).getId());
+        if (oldPassi.get(oldItemPosition).getId() != null && newPassi.get(newItemPosition).getId() != null)
+            return oldPassi.get(oldItemPosition).getId().equals(newPassi.get(newItemPosition).getId());
+        else
+            return false;
     }
 
     @Override

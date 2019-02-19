@@ -89,7 +89,6 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tags_delimiter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -119,7 +118,6 @@
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/ingredienti_delimiter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -149,7 +147,6 @@
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/preparazione_delimiter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"

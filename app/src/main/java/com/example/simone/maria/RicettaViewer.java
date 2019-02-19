@@ -18,6 +18,7 @@ public class RicettaViewer extends AppCompatActivity{
     private IngredientiAdapter ingredientiAdapter;
     private TagAdapter tagAdapter;
     private PassoAdapter passiAdapter;
+    private ImageAdapter imageAdapter;
     private TextView titolo;
     private TextView descrizione;
     private TextView calorie;
@@ -54,7 +55,7 @@ public class RicettaViewer extends AppCompatActivity{
         recyclerView.setAdapter(ingredientiAdapter);
 
         ViewPager viewPager = findViewById(R.id.photo_pager);
-        ImageAdapter imageAdapter = new ImageAdapter(this, ricetta);
+        imageAdapter = new ImageAdapter(this, ricetta);
         viewPager.setAdapter(imageAdapter);
 
 
@@ -105,6 +106,7 @@ public class RicettaViewer extends AppCompatActivity{
         ingredientiAdapter.updateList();
         tagAdapter.updateList();
         passiAdapter.updateList();
+        imageAdapter.notifyDataSetChanged();
     }
 
     @Override

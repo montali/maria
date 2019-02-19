@@ -253,6 +253,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues valueFTS = new ContentValues();
         valueFTS.put(KEY_RICETTA, ricetta.getName());
+        db.update(TABLE_RICETTA, values, KEY_ID + " = ?",
+                new String[]{String.valueOf(ricetta.getId())});
         db.update(TABLE_RICETTA_FTS, valueFTS, "docid = ?", new String[]{String.valueOf(ricetta.getId())});
     }
 
@@ -303,6 +305,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
         // updating row
         ContentValues valueFTS = new ContentValues();
         valueFTS.put(KEY_TAG_NAME, tag.getTagName());
+        db.update(TABLE_TAG, values, KEY_ID + " = ?",
+                new String[]{String.valueOf(tag.getId())});
         db.update(TABLE_TAG_FTS, valueFTS, "docid = ?", new String[]{String.valueOf(tag.getId())});
     }
 

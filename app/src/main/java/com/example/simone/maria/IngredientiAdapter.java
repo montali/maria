@@ -123,10 +123,7 @@ public class IngredientiAdapter extends RecyclerView.Adapter<IngredientiAdapter.
                     View viewInflated = LayoutInflater.from(this.context).inflate(R.layout.text_input_dialog, (ViewGroup) view, false);
                     final EditText inputname = viewInflated.findViewById(R.id.input);
                     final EditText inputqty = viewInflated.findViewById(R.id.input_quantity);
-                    if (ingrediente.getId() == null) {
-                        inputname.setHint(R.string.hint_nome);
-                        inputqty.setHint(R.string.hint_grams);
-                    } else {
+                    if (ingrediente.getId() != null) {
                         inputname.setText(ingrediente.getmName());
                         inputqty.setText(String.format(Locale.getDefault(), "%d", ingrediente.getGrams()));
                     }

@@ -27,7 +27,10 @@ class IngredientiDiffCallback extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return oldIngredienti.get(oldItemPosition).getId().equals(newIngredienti.get(newItemPosition).getId());
+        if (newIngredienti.get(newItemPosition).getId() != null && oldIngredienti.get(oldItemPosition).getId() != null)
+            return oldIngredienti.get(oldItemPosition).getId().equals(newIngredienti.get(newItemPosition).getId());
+        else
+            return false;
     }
 
     @Override

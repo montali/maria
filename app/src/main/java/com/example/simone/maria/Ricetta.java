@@ -6,6 +6,7 @@ class Ricetta {
 
     private final int id;
     private String mName;
+    private String mDescription;
     private Integer people;
     private Integer calories;
 
@@ -37,7 +38,6 @@ class Ricetta {
         return people;
     }
 
-    private String mDescription;
 
     public int getId() {
         return id;
