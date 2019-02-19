@@ -121,7 +121,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public int createRicetta(Ricetta ricetta) {
+    int createRicetta(Ricetta ricetta) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -141,72 +141,92 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return ricetta_id;
     }
 
-    public int getMaxRicetta() {
+    int getMaxRicetta() {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT MAX(" + KEY_ID + ") AS MASSIMO FROM " + TABLE_RICETTA;
         Cursor c = db.rawQuery(selectQuery, null);
+        int max;
         if (c != null) {
             c.moveToFirst();
-            return c.getInt(c.getColumnIndex("MASSIMO"));
+            max = c.getInt(c.getColumnIndex("MASSIMO"));
         } else
-            return 0;
+            max = 0;
+        if (c != null)
+            c.close();
+        return max;
+
     }
 
-    public int getMaxTag() {
+    int getMaxTag() {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT MAX(" + KEY_ID + ") AS MASSIMO FROM " + TABLE_TAG;
         Cursor c = db.rawQuery(selectQuery, null);
-        if (c != null)
+        int max;
+        if (c != null) {
             c.moveToFirst();
-        return c.getInt(c.getColumnIndex("MASSIMO"));
+            max = c.getInt(c.getColumnIndex("MASSIMO"));
+            c.close();
+        } else
+            max = 0;
+        return max;
     }
 
-    public int getMaxImmagine() {
+    int getMaxImmagine() {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT MAX(" + KEY_ID + ") AS MASSIMO FROM " + TABLE_IMMAGINE;
         Cursor c = db.rawQuery(selectQuery, null);
+        int max;
         if (c != null) {
             c.moveToFirst();
-            return c.getInt(c.getColumnIndex("MASSIMO"));
+            max = c.getInt(c.getColumnIndex("MASSIMO"));
+            c.close();
         } else
-            return 0;
+            max = 0;
+        return max;
     }
 
-    public int getMaxPasso() {
+    int getMaxPasso() {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT MAX(" + KEY_ID + ") AS MASSIMO FROM " + TABLE_PASSO;
         Cursor c = db.rawQuery(selectQuery, null);
+        int max;
         if (c != null) {
             c.moveToFirst();
-            return c.getInt(c.getColumnIndex("MASSIMO"));
+            max = c.getInt(c.getColumnIndex("MASSIMO"));
+            c.close();
         } else
-            return 0;
+            max = 0;
+        return max;
     }
 
-    public int getMaxIngrediente() {
+    int getMaxIngrediente() {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT MAX(" + KEY_ID + ") AS MASSIMO FROM " + TABLE_INGREDIENTE;
         Cursor c = db.rawQuery(selectQuery, null);
+        int max;
         if (c != null) {
             c.moveToFirst();
-            return c.getInt(c.getColumnIndex("MASSIMO"));
+            max = c.getInt(c.getColumnIndex("MASSIMO"));
+            c.close();
         } else
-            return 0;
+            max = 0;
+        return max;
     }
-    public Ricetta getRicetta(long ricetta_id) {
+
+    Ricetta getRicetta(long ricetta_id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Ricetta ricetta = null;
         String selectQuery = "SELECT * FROM " + TABLE_RICETTA + " WHERE " + KEY_ID + "=" + ricetta_id;
         Cursor c = db.rawQuery(selectQuery, null);
-        if (c.moveToFirst() && c != null) {
-            //c.moveToFirst();
+        if (c != null && c.moveToFirst()) {
             ricetta = new Ricetta(c.getString(c.getColumnIndex(KEY_RICETTA)), c.getInt(c.getColumnIndex(KEY_ID)), c.getString(c.getColumnIndex(KEY_DESCRIPTION)), c.getInt(c.getColumnIndex(KEY_PEOPLE)), c.getInt(c.getColumnIndex(KEY_CALORIES)));
+            c.close();
         }
         return ricetta;
     }
 
-    public ArrayList<Ricetta> getAllRicette() {
-        ArrayList<Ricetta> ricette = new ArrayList<Ricetta>();
+    ArrayList<Ricetta> getAllRicette() {
+        ArrayList<Ricetta> ricette = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_RICETTA;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -216,12 +236,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ricette.add(ricetta);
             }
             while (c.moveToNext());
+            c.close();
         }
         return ricette;
     }
 
 
-    public int updateRicetta(Ricetta ricetta) {
+    void updateRicetta(Ricetta ricetta) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -233,13 +254,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues valueFTS = new ContentValues();
         valueFTS.put(KEY_RICETTA, ricetta.getName());
         db.update(TABLE_RICETTA_FTS, valueFTS, "docid = ?", new String[]{String.valueOf(ricetta.getId())});
-        // updating row
-        return db.update(TABLE_RICETTA, values, KEY_ID + " = ?",
-                new String[]{String.valueOf(ricetta.getId())});
     }
 
 
-    public void deleteRicetta(long ricetta_id) {
+    void deleteRicetta(long ricetta_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_RICETTA_FTS, "docid = ?", new String[]{String.valueOf(ricetta_id)});
         db.delete(TABLE_RICETTA, KEY_ID + " = ?",
@@ -247,25 +265,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public long createTag(Tag tag) {
+    void createTag(Tag tag) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(KEY_ID, tag.getId());
         values.put(KEY_TAG_NAME, tag.getTagName());
         values.put(KEY_RICETTA_ID, tag.getRicettaId());
-
         // insert row
-        long tag_id = db.insert(TABLE_TAG, null, values);
+        db.insert(TABLE_TAG, null, values);
         ContentValues valueFTS = new ContentValues();
         valueFTS.put(KEY_TAG_NAME, tag.getTagName());
         db.insert(TABLE_TAG_FTS, null, valueFTS);
-        return tag_id;
     }
 
 
-    public ArrayList<Tag> getTagsFromRicetta(Ricetta ricetta) {
-        ArrayList<Tag> tags = new ArrayList<Tag>();
+    ArrayList<Tag> getTagsFromRicetta(Ricetta ricetta) {
+        ArrayList<Tag> tags = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_TAG + " WHERE " + KEY_RICETTA_ID + "=" + ricetta.getId();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -274,11 +289,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Tag t = new Tag(c.getInt(c.getColumnIndex(KEY_ID)), c.getString(c.getColumnIndex(KEY_TAG_NAME)), c.getInt(c.getColumnIndex(KEY_RICETTA_ID)));
                 tags.add(t);
             } while (c.moveToNext());
+            c.close();
         }
         return tags;
     }
 
-    public int updateTag(Tag tag) {
+    void updateTag(Tag tag) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -288,11 +304,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues valueFTS = new ContentValues();
         valueFTS.put(KEY_TAG_NAME, tag.getTagName());
         db.update(TABLE_TAG_FTS, valueFTS, "docid = ?", new String[]{String.valueOf(tag.getId())});
-        return db.update(TABLE_TAG, values, KEY_ID + " = ?",
-                new String[]{String.valueOf(tag.getId())});
     }
 
-    public void deleteTag(Tag tag) {
+    void deleteTag(Tag tag) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_TAG_FTS, "docid = ?", new String[]{String.valueOf(tag.getId())});
         db.delete(TABLE_TAG, KEY_ID + " = ?",
@@ -300,23 +314,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public long createPasso(Passo passo) {
+    void createPasso(Passo passo) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(KEY_ID, passo.getId());
         values.put(KEY_PASSO_DESC, passo.getDescription());
         values.put(KEY_PASSO_NUM, passo.getNumber());
         values.put(KEY_RICETTA_ID, passo.getRicetta_id());
         values.put(KEY_PASSO_DONE, passo.isDone());
-
-        long passo_id = db.insert(TABLE_PASSO, null, values);
-        return passo_id;
+        db.insert(TABLE_PASSO, null, values);
     }
 
 
-    public ArrayList<Passo> getPassiFromRicetta(Ricetta ricetta) {
-        ArrayList<Passo> passi = new ArrayList<Passo>();
+    ArrayList<Passo> getPassiFromRicetta(Ricetta ricetta) {
+        ArrayList<Passo> passi = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_PASSO + " WHERE " + KEY_RICETTA_ID + "=" + ricetta.getId();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -325,53 +336,49 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Passo passo = new Passo(c.getInt(c.getColumnIndex(KEY_ID)), c.getInt(c.getColumnIndex(KEY_PASSO_NUM)), c.getInt(c.getColumnIndex(KEY_RICETTA_ID)), c.getString(c.getColumnIndex(KEY_PASSO_DESC)), c.getInt(c.getColumnIndex(KEY_PASSO_DONE)));
                 passi.add(passo);
             } while (c.moveToNext());
+            c.close();
         }
         return passi;
     }
 
 
-    public int updatePasso(Passo passo) {
+    void updatePasso(Passo passo) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(KEY_ID, passo.getId());
         values.put(KEY_PASSO_DESC, passo.getDescription());
         values.put(KEY_PASSO_NUM, passo.getNumber());
         values.put(KEY_RICETTA_ID, passo.getRicetta_id());
         values.put(KEY_PASSO_DONE, passo.isDone());
-
         // updating row
-        return db.update(TABLE_PASSO, values, KEY_ID + " = ?",
+        db.update(TABLE_PASSO, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(passo.getId())});
     }
 
 
-    public void deletePasso(long passo_id) {
+    void deletePasso(long passo_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_PASSO, KEY_ID + " = ?",
                 new String[]{String.valueOf(passo_id)});
     }
 
 
-    public long createIngrediente(Ingrediente ingrediente) {
+    void createIngrediente(Ingrediente ingrediente) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(KEY_ID, ingrediente.getId());
         values.put(KEY_INGREDIENTE, ingrediente.getmName());
         values.put(KEY_QUANTITA, ingrediente.getGrams());
         values.put(KEY_RICETTA_ID, ingrediente.getRicetta_id());
-
-        long ingrediente_id = db.insert(TABLE_INGREDIENTE, null, values);
+        db.insert(TABLE_INGREDIENTE, null, values);
         ContentValues valueFTS = new ContentValues();
         valueFTS.put(KEY_INGREDIENTE, ingrediente.getmName());
         db.insert(TABLE_INGREDIENTE_FTS, null, valueFTS);
-        return ingrediente_id;
     }
 
 
-    public ArrayList<Ingrediente> getIngredientiFromRicetta(Ricetta ricetta) {
-        ArrayList<Ingrediente> ingredienti = new ArrayList<Ingrediente>();
+    ArrayList<Ingrediente> getIngredientiFromRicetta(Ricetta ricetta) {
+        ArrayList<Ingrediente> ingredienti = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_INGREDIENTE + " WHERE " + KEY_RICETTA_ID + "=" + ricetta.getId();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -380,13 +387,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Ingrediente ingrediente = new Ingrediente(c.getInt(c.getColumnIndex(KEY_ID)), c.getString(c.getColumnIndex(KEY_INGREDIENTE)), c.getInt(c.getColumnIndex(KEY_QUANTITA)), c.getInt(c.getColumnIndex(KEY_RICETTA_ID)));
                 ingredienti.add(ingrediente);
             } while (c.moveToNext());
+            c.close();
         }
         return ingredienti;
     }
 
 
-
-    public int updateIngrediente(Ingrediente ingrediente) {
+    void updateIngrediente(Ingrediente ingrediente) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -401,12 +408,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         valueFTS.put(KEY_INGREDIENTE, ingrediente.getName());
         db.update(TABLE_INGREDIENTE_FTS, valueFTS, "docid = ?", new String[]{String.valueOf(ingrediente.getId())});
 
-        return db.update(TABLE_INGREDIENTE, values, KEY_ID + " = ?",
+        db.update(TABLE_INGREDIENTE, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(ingrediente.getId())});
     }
 
 
-    public void deleteIngrediente(long ingrediente_id) {
+    void deleteIngrediente(long ingrediente_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_INGREDIENTE_FTS, "docid = ?", new String[]{String.valueOf(ingrediente_id)});
         db.delete(TABLE_INGREDIENTE, KEY_ID + " = ?",
@@ -414,20 +421,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public long createImmagine(Immagine img) {
+    void createImmagine(Immagine img) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(KEY_ID, img.getId());
         values.put(KEY_IMAGE_URI, img.getPhoto_uri().toString());
         values.put(KEY_RICETTA_ID, img.getRicetta_id());
-
-        long immagine_id = db.insert(TABLE_IMMAGINE, null, values);
-        return immagine_id;
+        db.insert(TABLE_IMMAGINE, null, values);
     }
 
-    public ArrayList<Immagine> getImmaginiFromRicetta(Ricetta ricetta) {
-        ArrayList<Immagine> images = new ArrayList<Immagine>();
+    ArrayList<Immagine> getImmaginiFromRicetta(Ricetta ricetta) {
+        ArrayList<Immagine> images = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_IMMAGINE + " WHERE " + KEY_RICETTA_ID + "=" + ricetta.getId();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -436,18 +440,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Immagine img = new Immagine(c.getInt(c.getColumnIndex(KEY_ID)), Uri.parse(c.getString(c.getColumnIndex(KEY_IMAGE_URI))), c.getInt(c.getColumnIndex(KEY_RICETTA_ID)));
                 images.add(img);
             } while (c.moveToNext());
+            c.close();
         }
         return images;
     }
 
 
-    public void deleteImmagine(long immagine_id) {
+    void deleteImmagine(long immagine_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_IMMAGINE, KEY_ID + " = ?",
                 new String[]{String.valueOf(immagine_id)});
     }
 
-    public ArrayList<Ricetta> searchRicette(String text) {
+    ArrayList<Ricetta> searchRicette(String text) {
         ArrayList<Ricetta> ricette = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         String query, query1, query2, query3;
@@ -465,6 +470,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Ricetta ricetta = new Ricetta(c.getString(c.getColumnIndex(KEY_RICETTA)), c.getInt(c.getColumnIndex(KEY_ID)), c.getString(c.getColumnIndex(KEY_DESCRIPTION)), c.getInt(c.getColumnIndex(KEY_PEOPLE)), c.getInt(c.getColumnIndex(KEY_CALORIES)));
                 ricette.add(ricetta);
             } while (c.moveToNext());
+            c.close();
         }
 
         db.execSQL("DROP VIEW IF EXISTS T1");
@@ -473,7 +479,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return ricette;
     }
 
-    public void closeDB() {
+    void closeDB() {
         SQLiteDatabase db = this.getReadableDatabase();
         if (db != null && db.isOpen())
             db.close();

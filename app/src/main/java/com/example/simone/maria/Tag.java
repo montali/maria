@@ -5,7 +5,7 @@ public class Tag {
     private String tagName;
     private int ricettaId;
 
-    public Tag(Integer id, String tagName, int ricettaId) {
+    Tag(Integer id, String tagName, int ricettaId) {
         this.id = id;
         this.tagName = tagName;
         this.ricettaId = ricettaId;
@@ -20,19 +20,19 @@ public class Tag {
         this.id = id;
     }
 
-    public String getTagName() {
+    String getTagName() {
         return tagName;
     }
 
-    public void setTagName(String tagName) {
+    void setTagName(String tagName) {
         this.tagName = tagName;
     }
 
-    public int getRicettaId() {
+    int getRicettaId() {
         return ricettaId;
     }
 
-    public void setRicettaId(int ricettaId) {
+    void setRicettaId(int ricettaId) {
         this.ricettaId = ricettaId;
     }
 }

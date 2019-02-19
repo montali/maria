@@ -38,10 +38,6 @@ public class Passo  implements Serializable {
         return done;
     }
 
-    void setDone(int done) {
-        this.done = done;
-    }
-
     public void setNumber(Integer number) {
         this.number = number;
     }

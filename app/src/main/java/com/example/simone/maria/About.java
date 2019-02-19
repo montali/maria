@@ -74,7 +74,7 @@ public class About extends AppCompatActivity {
     }
 
 
-    public void exportRicette() {
+    private void exportRicette() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }

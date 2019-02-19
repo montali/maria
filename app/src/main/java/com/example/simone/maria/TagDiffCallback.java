@@ -9,10 +9,10 @@ import java.util.ArrayList;
 public class TagDiffCallback extends DiffUtil.Callback {
 
 
-    ArrayList<Tag> oldTags;
-    ArrayList<Tag> newTags;
+    private ArrayList<Tag> oldTags;
+    private ArrayList<Tag> newTags;
 
-    public TagDiffCallback(ArrayList<Tag> newTags, ArrayList<Tag> oldTags) {
+    TagDiffCallback(ArrayList<Tag> newTags, ArrayList<Tag> oldTags) {
         this.newTags = newTags;
         this.oldTags = oldTags;
     }
@@ -29,7 +29,7 @@ public class TagDiffCallback extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return oldTags.get(oldItemPosition).getId() == newTags.get(newItemPosition).getId();
+        return oldTags.get(oldItemPosition).getId().equals(newTags.get(newItemPosition).getId());
     }
 
     @Override
