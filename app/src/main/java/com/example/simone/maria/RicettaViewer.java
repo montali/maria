@@ -91,6 +91,10 @@ public class RicettaViewer extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
         final Ricetta ricetta = db.getRicetta(id);
+        if (ricetta == null) {
+            finish();
+            return;
+        }
         titolo.setText(ricetta.getName());
         descrizione.setText(ricetta.getmDescription());
         String peopleText = ricetta.getPeople().toString() + getString(R.string.people);
