@@ -136,6 +136,8 @@ public class RicettaEdit extends AppCompatActivity implements BSImagePicker.OnSi
                 final NumberPicker peopleSelector = viewInflated.findViewById(R.id.people_selector);
                 peopleSelector.setMinValue(1);
                 peopleSelector.setMaxValue(20);
+            if (ricetta.getPeople() != 0)
+                peopleSelector.setValue(ricetta.getPeople());
                 builder.setView(viewInflated);
             builder.setPositiveButton(R.string.ok, (DialogInterface dialog, int which) -> {
                         dialog.dismiss();
@@ -166,8 +168,9 @@ public class RicettaEdit extends AppCompatActivity implements BSImagePicker.OnSi
                 }
                 arrayValues[iStepsArray] = getString(R.string.dunno);
 
-
                 peopleSelector.setDisplayedValues(arrayValues);
+            if (ricetta.getCalories() != 0)
+                peopleSelector.setValue((ricetta.getCalories() - MIN_CALORIES) / 50);
                 builder.setView(viewInflated);
             builder.setPositiveButton(R.string.ok, (DialogInterface dialog, int which) -> {
                         dialog.dismiss();

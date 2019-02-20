@@ -33,7 +33,7 @@ class ImageAdapter extends PagerAdapter {
     @NonNull
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         ImageView imageView = new ImageView(context);
-        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setImageURI(db.getImmaginiFromRicetta(ricetta).get(position).getPhoto_uri());
         container.addView(imageView, 0);
         return imageView;

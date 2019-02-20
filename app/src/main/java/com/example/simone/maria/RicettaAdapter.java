@@ -58,8 +58,8 @@ public class RicettaAdapter extends RecyclerView.Adapter<RicettaAdapter.ViewHold
             if (db.getImmaginiFromRicetta(ricetta).size() != 0)
                 imageView.setImageURI(db.getImmaginiFromRicetta(ricetta).get(0).getPhoto_uri());
             if (ricetta.getmDescription() != null) {
-                if (ricetta.getmDescription().length() > 50) {
-                    subDescription = ricetta.getmDescription().substring(0, 50) + "...";
+                if (ricetta.getmDescription().length() > 500) {
+                    subDescription = ricetta.getmDescription().substring(0, 500) + "...";
             } else{
                     subDescription = ricetta.getmDescription();
                 }
